@@ -8,14 +8,16 @@ const router = express.Router();
 
 
 router.post('/', (req, res) => {
-    const projects = req.body;
-    db.insert(projects)
-        .then(project => {
-            res.status(201).json(project);
+    const newProject = req.body;
+    db.insert(newProject)
+        .then(projects => {
+            res.status(201).json(projects);
         })
         .catch(err => {
-            console.log(err);
-            res.status(500).json({ error: "Yo Error adding project" });
+            res.status(500).json({
+                err: err,
+                message: "can not create anything bro"
+            });
         });
 });
 
@@ -46,30 +48,43 @@ router.get('/', (req, res) => {
 
 
 router.delete('/:id', (req, res) => {
-    const { id } = req.project;
+    const { id } = req.params;
     db.remove(id)
-        .then(() => res.status(204).end())
+        .then(deletedUser => {
+            if (deletedUser) {
+                res.json(deletedUser);
+            } else {
+                res.status(404).json({
+                    message: "invalid id"
+                })
+            }
+        })
         .catch(err => {
-            console.log(err);
-            res.status(500).json({ error: "Error deleting project" });
+            res.status(500).json({
+                err: err,
+                message: "can not update anything bro"
+            });
         });
 });
 
 router.put('/:id', (req, res) => {
     const { id } = req.params;
-    const description = req.body.description;
-    db.update(id, { description })
-        .then(() => {
-            project.getById(id)
-                .then(project => res.status(200).json(project))
-                .catch(err => {
-                    console.log(err);
-                    res.status(500).json({ error: "Error getting project" });
-                });
+    const changes = req.body;
+    db.update(id, changes)
+        .then(updated => {
+            if (updated) {
+                res.json(updated);
+            } else {
+                res.status(404).json({
+                    message: "invalid id"
+                })
+            }
         })
         .catch(err => {
-            console.log(err);
-            res.status(500).json({ error: "Error getting updating project" });
+            res.status(500).json({
+                err: err,
+                message: "can not update anything bro"
+            });
         });
 });
 
