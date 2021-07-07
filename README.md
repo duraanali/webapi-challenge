@@ -26,13 +26,24 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+Answer: We learned about middlewares and how they are the core of Express. We also learned about routers and how you can use them to create more effecient api. 
+
+
 - [ ] Describe Middleware?
+
+Answer: Middleware is the biggest part of Express, they are functions that control the flow of the api by allowing you to manage what to do or if you want the api to go to the next api.
 
 - [ ] Describe a Resource?
 
+Answer: Resources are the information the endpoints give to the users. These resources could be list of movies, posts or names that can be access through an endpoint.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+Answer: The API can show a success message with 200 status code.
+
 - [ ] How can we partition our application into sub-applications?
+
+Answer: We can partition our application by using router and creating different folders for each section of our application instead of putting the endpoints in one file.
 
 ## Project Setup
 
